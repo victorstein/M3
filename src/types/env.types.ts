@@ -1,4 +1,18 @@
+export enum Environments {
+  TEST = 'test',
+  DEVELOPMENT = 'development',
+  PRODUCTION = 'production'
+}
+
+export enum LogLevels {
+  LOG = 'log',
+  ERROR = 'error',
+  WARN = 'warn',
+  DEBUG = 'debug',
+  VERBOSE = 'verbose'
+}
 export interface IEnv {
+  NODE_ENV: Environments
   PORT: number
   ADMIN_EMAIL: string
   JWT_SECRET: string
@@ -7,7 +21,7 @@ export interface IEnv {
   REFRESH_JWT_EXP: string
   DB_URL: string
   DOMAIN_URL: string
-  QUERY_COMPLEXITY_LIMIT: string
+  QUERY_COMPLEXITY_LIMIT: number
   RATE_LIMIT_BAN_EXP: string
   EMAIL_HOST: string
   EMAIL_TLS_PORT: number
@@ -20,5 +34,5 @@ export interface IEnv {
   ALLOWED_ORIGINS: string
   SENTRY_DSN: string
   SENTRY_SERVER_NAME: string
-  LOG_LEVEL: 'log' | 'error' | 'warn' | 'debug' | 'verbose'
+  LOG_LEVEL: LogLevels
 }
