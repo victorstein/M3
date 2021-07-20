@@ -1,30 +1,6 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# M3
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+TypeGraphQL Boilerplate mark 3.
 
 ## Installation
 
@@ -32,6 +8,33 @@
 $ npm install
 ```
 
+Create a .env file with the following set up. (examples in parentheses)
+
+| KEY | DESCRIPTION | REQUIRED | DEFAULT
+| ------ | ------ | ------ | --------- |
+PORT| Port that the application runs | FALSE | 3002
+NODE_ENV| Environment variable | FALSE | development
+ADMIN_EMAIL | Email used to set up the first user | TRUE |
+TOKEN_SECRET | Secret used to encrypt JWT | TRUE
+REFRESH_TOKEN_SECRET | Secret used to encrypt Refresh token | TRUE
+TOKEN_EXP | JWT expiration | FALSE | 15m
+REFRESH_TOKEN_EXP | Refresh token expiration | FALSE | 1d
+DB_URL | Database URL | True |
+DOMAIN_URL | URL of the frontend (used for email urls) | FALSE | http://localhost
+QUERY_COMPLEXITY_LIMIT | Limit of incoming requests complexity (nested fields) | FALSE | 20
+RATE_LIMIT_BAN_EXP | Ban period after making too many request to a throttled endpoint | FALSE | 5h
+EMAIL_PROVIDER_HOST | Email provider host | FALSE | smtp.gmail.com
+EMAIL_PROVIDER_TLS_PORT | Email provider TLS port | FALSE | 587
+EMAIL_PROVIDER_SSL_PORT | Email provider SSL port | FALSE | 465
+EMAIL_PROVIDER_USER | Email address where emails will be sent from | TRUE |
+EMAIL_PROVIDER_PASS | Password of email provider user | TRUE | 
+EMAIL_VERIFICATION_EXP | Expiration of email validation upon signup | FALSE | 1w
+EMAIL_PASSWORD_REQUEST_EXP | Expiration of pasword reset request | FALSE | 1d
+EMAIL_SECRET | Secret used to decode hashed data from emails | TRUE |
+ALLOWED_ORIGINS | Comma separated strings of allowed consumers (CORS) | FALSE |
+SENTRY_DSN | Sentry DSN string | FALSE | 
+SENTRY_SERVER_NAME | Servername that will be sent to sentry | FALSE
+LOG_LEVEL | Log level for winston | FALSE | defaults to `verbose` in development and `error` in production
 ## Running the app
 
 ```bash
@@ -57,17 +60,11 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Contributing
 
-## Support
+Feel free to submit your PRs for review. There's currently no template for contribution. As the project grows we will look into further implementation of this.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Authors
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="http://victorstein.github.io"><img src="https://avatars3.githubusercontent.com/u/11080740?v=3" width="100px;" /><br /><sub><b>Alfonso Gomez</b></sub></a><br /><a href="#question" title="Answering Questions">💬</a> <a href="#" title="Documentation">📖</a><a href="#tool" title="Tools">🔧</a> <a href="#review" title="Reviewed Pull Requests">👀</a> <a href="#maintenance" title="Maintenance">😎</a></td></table>
