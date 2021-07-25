@@ -1,4 +1,4 @@
-import { Base } from 'src/base/base.entity'
+import { Base } from 'base/base.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { Roles } from './types/roleTypes'
 import { Prop, Schema } from '@nestjs/mongoose'

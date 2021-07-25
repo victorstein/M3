@@ -1,8 +1,8 @@
 import { Logger, Module } from '@nestjs/common';
-import { DBConnection } from 'src/db.config';
-import { EnvValidation } from 'src/env.validation';
-import { UserModule } from 'src/user/user.module';
-import { RoleModule } from 'src/role/role.module';
+import { DBConnection } from 'db.config';
+import { EnvValidation } from 'env.validation';
+import { UserModule } from 'user/user.module';
+import { RoleModule } from 'role/role.module';
 import { Seeder } from './seeder';
 import { SeederService } from './seeder.service';
 

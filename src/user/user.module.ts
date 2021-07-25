@@ -3,9 +3,9 @@ import { UserService } from './user.service';
 import { UserResolver } from './user.resolver';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
 import { User } from './user.entity';
-import { Service } from 'src/base/service.base';
-// import { Role } from 'src/role/role.entity';
-import { RoleModule } from 'src/role/role.module';
+import { Service } from 'base/service.base';
+// import { Role } from 'role/role.entity';
+import { RoleModule } from 'role/role.module';
 
 @Module({
   imports: [

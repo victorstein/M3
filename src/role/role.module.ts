@@ -3,7 +3,7 @@ import { RoleService } from './role.service';
 import { RoleResolver } from './role.resolver';
 import { Role } from './role.entity';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
-import { Service } from 'src/base/service.base';
+import { Service } from 'base/service.base';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Role', schema: SchemaFactory.createForClass(Role) }])],

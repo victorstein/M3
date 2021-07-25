@@ -1,7 +1,7 @@
-import { Base } from 'src/base/base.entity'
+import { Base } from 'base/base.entity'
 import { Prop, Schema } from '@nestjs/mongoose'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { Role } from 'src/role/role.entity'
+import { Role } from 'role/role.entity'
 import * as mongoose from 'mongoose'
 
 @ObjectType()
