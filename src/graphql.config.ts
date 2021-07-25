@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { GqlModuleOptions, GqlOptionsFactory, GraphQLModule } from "@nestjs/graphql";
+import { Request, Response } from "express";
 import { join } from "path";
 import { Environments, IEnv } from "./types/env.types";
 
@@ -13,7 +14,11 @@ class GraphQLConfig implements GqlOptionsFactory {
 
     return {
       debug: ENV !== Environments.PRODUCTION,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql')
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: ENV !== Environments.PRODUCTION,
+      context: ({ req, res }: Request & Response) => {
+        return { req, res }
+      }
     }
   }
 }
