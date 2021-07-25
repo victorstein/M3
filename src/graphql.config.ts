@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { GqlModuleOptions, GqlOptionsFactory, GraphQLModule } from "@nestjs/graphql";
 import { Request, Response } from "express";
 import { join } from "path";
-import { Environments, IEnv } from "./types/env.types";
+import { Environments, IEnv } from "./env.types";
 
 @Injectable()
 class GraphQLConfig implements GqlOptionsFactory {
