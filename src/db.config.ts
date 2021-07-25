@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { MongooseModule, MongooseModuleOptions, MongooseOptionsFactory } from "@nestjs/mongoose";
-import { IEnv } from "./types/env.types";
+import { IEnv } from "./env.types";
 
 @Injectable()
 class MongooseConfigService implements MongooseOptionsFactory {
@@ -23,6 +23,6 @@ class MongooseConfigService implements MongooseOptionsFactory {
   }
 }
 
-export const dbConnection = MongooseModule.forRootAsync({
+export const DBConnection = MongooseModule.forRootAsync({
   useClass: MongooseConfigService
 })

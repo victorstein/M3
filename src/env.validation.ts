@@ -1,7 +1,7 @@
 import { ConfigModule } from '@nestjs/config'
 import { plainToClass } from 'class-transformer'
 import { IsDefined, IsEmail, IsFQDN, IsIn, IsNumber, IsOptional, IsString, IsUrl, Min, MinLength, validateSync } from 'class-validator'
-import { Environments, IEnv, LogLevels } from './types/env.types'
+import { Environments, IEnv, LogLevels } from './env.types'
 
 export class EnvironmentVariables implements IEnv {
   // GENERAL VARIABLES
@@ -58,7 +58,7 @@ export function validateEnv (config: Record<string, unknown>) {
   return validateConfig
 }
 
-export const envValidation = ConfigModule.forRoot({
+export const EnvValidation = ConfigModule.forRoot({
   validate: validateEnv,
   isGlobal: true,
   cache: true
