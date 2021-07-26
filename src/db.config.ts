@@ -1,16 +1,16 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { MongooseModule, MongooseModuleOptions, MongooseOptionsFactory } from "@nestjs/mongoose";
-import { IEnv } from "./types/env.types";
+import { IEnv } from "./env.types";
 
 @Injectable()
 class MongooseConfigService implements MongooseOptionsFactory {
   @Inject()
-  private readonly configService: ConfigService
+  private readonly configService: ConfigService<IEnv>
 
   createMongooseOptions(): MongooseModuleOptions {
-    const DB_URL = this.configService.get<IEnv['DB_URL']>('DB_URL')
-    const ENV = this.configService.get<IEnv['NODE_ENV']>('NODE_ENV')
+    const DB_URL = this.configService.get('DB_URL')
+    const ENV = this.configService.get('NODE_ENV')
 
     return {
       uri: DB_URL,
@@ -23,6 +23,6 @@ class MongooseConfigService implements MongooseOptionsFactory {
   }
 }
 
-export const dbConnection = MongooseModule.forRootAsync({
+export const DBConnection = MongooseModule.forRootAsync({
   useClass: MongooseConfigService
 })

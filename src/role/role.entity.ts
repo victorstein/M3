@@ -1,11 +1,10 @@
-import { Base } from 'src/base/base.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { Roles } from './types/roleTypes'
 import { Prop, Schema } from '@nestjs/mongoose'
 
 @ObjectType()
 @Schema({ timestamps: true })
-export class Role extends Base {
+export class Role {
   @Field(() => ID)
   id: string
 

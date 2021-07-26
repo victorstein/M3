@@ -3,14 +3,14 @@ import { ConfigService } from "@nestjs/config";
 import { GqlModuleOptions, GqlOptionsFactory, GraphQLModule } from "@nestjs/graphql";
 import { Request, Response } from "express";
 import { join } from "path";
-import { Environments, IEnv } from "./types/env.types";
+import { Environments, IEnv } from "./env.types";
 
 @Injectable()
 class GraphQLConfig implements GqlOptionsFactory {
-  @Inject() configService: ConfigService
+  @Inject() configService: ConfigService<IEnv>
 
   createGqlOptions(): GqlModuleOptions {
-    const ENV = this.configService.get<IEnv['NODE_ENV']>('NODE_ENV')
+    const ENV = this.configService.get('NODE_ENV')
 
     return {
       debug: ENV !== Environments.PRODUCTION,
