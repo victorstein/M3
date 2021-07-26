@@ -1,4 +1,3 @@
-import { Base } from 'base/base.entity'
 import { Prop, Schema } from '@nestjs/mongoose'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { Role } from 'role/role.entity'
@@ -6,7 +5,7 @@ import * as mongoose from 'mongoose'
 
 @ObjectType()
 @Schema({ timestamps: true })
-export class User extends Base {
+export class User {
   @Field(() => ID)
   id: string
 
