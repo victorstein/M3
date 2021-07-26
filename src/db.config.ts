@@ -6,11 +6,11 @@ import { IEnv } from "./env.types";
 @Injectable()
 class MongooseConfigService implements MongooseOptionsFactory {
   @Inject()
-  private readonly configService: ConfigService
+  private readonly configService: ConfigService<IEnv>
 
   createMongooseOptions(): MongooseModuleOptions {
-    const DB_URL = this.configService.get<IEnv['DB_URL']>('DB_URL')
-    const ENV = this.configService.get<IEnv['NODE_ENV']>('NODE_ENV')
+    const DB_URL = this.configService.get('DB_URL')
+    const ENV = this.configService.get('NODE_ENV')
 
     return {
       uri: DB_URL,
