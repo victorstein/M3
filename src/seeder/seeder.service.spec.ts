@@ -108,7 +108,7 @@ describe('SeederService', () => {
 
     it('Should call the roleSeeder method if the admin role doesn\'t exist', async () => {
       mockUserService.findOneByRole.mockResolvedValue(null)
-      mockRoleService.findOneByParam.mockResolvedValue(null)
+      mockRoleService.findOneByParam.mockResolvedValueOnce(null)
 
       service.seedRoles = jest.fn()
       await service.seedAdmin()
