@@ -25,18 +25,9 @@ describe('UserService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
-        {
-          provide: Logger,
-          useValue: logger
-        },
-        {
-          provide: getModelToken('User'),
-          useValue: userModel
-        },
-        {
-          provide: RoleService,
-          useValue: roleService
-        }
+        { provide: Logger, useValue: logger },
+        { provide: getModelToken('User'), useValue: userModel },
+        { provide: RoleService, useValue: roleService }
       ],
     }).compile();
 
