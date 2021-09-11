@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { RoleService } from 'role/role.service';
 import { Service } from 'base/service.base';
-import { Roles } from 'role/types/roleTypes';
+import { Roles } from 'role/types/role.types';
 import { User } from './user.entity';
 import * as generator from 'generate-password'
 import * as argon2 from 'argon2'

@@ -3,22 +3,9 @@
 # ------------------------------------------------------
 
 type Role {
-  createdBy: User
-  lastUpdatedBy: User
   id: ID!
   name: String!
   description: String!
-}
-
-type User {
-  createdBy: User
-  lastUpdatedBy: User
-  id: ID!
-  firstName: String!
-  lastName: String!
-  email: String!
-  role: Role!
-  emailVerified: Boolean!
 }
 
 type Query {

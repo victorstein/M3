@@ -3,10 +3,10 @@ import { UserService } from './user.service';
 import { mock } from 'jest-mock-extended'
 import { Logger } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
-import { DocumentType } from 'base/baseTypes';
+import { DocumentType } from 'base/base.types';
 import { User } from './user.entity';
 import { RoleService } from 'role/role.service';
-import { Roles } from 'role/types/roleTypes';
+import { Roles } from 'role/types/role.types';
 import { Role } from 'role/role.entity';
 import { Model } from 'mongoose';
 import * as generator from 'generate-password'

@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IEnv } from 'env.types';
 import { RoleService } from 'role/role.service';
-import { Roles } from 'role/types/roleTypes';
+import { Roles } from 'role/types/role.types';
 import { UserService } from 'user/user.service';
 
 @Injectable()

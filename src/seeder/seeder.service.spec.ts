@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { DocumentType } from 'base/baseTypes';
+import { DocumentType } from 'base/base.types';
 import { IEnv } from 'env.types';
 import { mock } from 'jest-mock-extended';
 import { Role } from 'role/role.entity';

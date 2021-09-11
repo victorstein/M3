@@ -1,6 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { FilterQuery, Model, ObjectId, UpdateQuery } from "mongoose";
-import { DocumentType } from "./baseTypes";
+import { DocumentType } from "./base.types";
 
 export class Service<T> {
   model: Model<T>

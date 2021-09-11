@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { Roles } from './types/roleTypes'
+import { Roles } from './types/role.types'
 import { Prop, Schema } from '@nestjs/mongoose'
 
 @ObjectType()
