@@ -1,18 +1,18 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { RoleService } from 'role/role.service';
-import { Service } from 'base/service.base';
+import { Service } from 'base/base.service';
 import { Roles } from 'role/types/role.types';
 import { User } from './user.entity';
 import * as generator from 'generate-password'
 import * as argon2 from 'argon2'
+import { ModelType } from '@typegoose/typegoose/lib/types';
 
 
 @Injectable()
 export class UserService extends Service<User> {
   @Inject() logger: Logger
-  @InjectModel('User') model: Model<User>
+  @InjectModel('User') model: ModelType<User>
   @Inject() roleService: RoleService
 
   async findOneByRole (role: Roles): Promise<User | null> {
