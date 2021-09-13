@@ -1,38 +1,39 @@
-import { Prop, Schema } from '@nestjs/mongoose'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { modelOptions, Ref } from '@typegoose/typegoose'
+import Base from 'base/base.entity'
 import { Role } from 'role/role.entity'
-import * as mongoose from 'mongoose'
+import { prop } from '@typegoose/typegoose'
 
 @ObjectType()
-@Schema({ timestamps: true })
-export class User {
+@modelOptions({ schemaOptions: { timestamps: true } })
+export class User extends Base {
   @Field(() => ID)
   id: string
 
   @Field()
-  @Prop({ required: true })
+  @prop({ required: true })
   firstName: string
 
   @Field()
-  @Prop({ required: true })
+  @prop({ required: true })
   lastName: string
 
   @Field({ nullable: false })
-  @Prop({ required: true, lowercase: true })
+  @prop({ required: true, lowercase: true })
   email: string
 
-  @Prop({ required: true })
+  @prop({ required: true })
   password: string
 
   @Field(() => Role)
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true })
-  role: Role
+  @prop({ ref: () => Role, required: true })
+  role: Ref<Role>
 
-  @Prop({ default: 1 })
+  @prop({ default: 1 })
   tokenVersion: number
 
   @Field()
-  @Prop({ default: false })
+  @prop({ default: false })
   emailVerified: boolean
 
   public get fullName (): string {

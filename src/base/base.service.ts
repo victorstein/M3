@@ -1,10 +1,11 @@
 import { Logger } from "@nestjs/common";
-import { FilterQuery, Model, ObjectId, UpdateQuery } from "mongoose";
-import { DocumentType } from "./base.types";
+import { DocumentType } from "@typegoose/typegoose";
+import { ModelType } from "@typegoose/typegoose/lib/types";
+import { FilterQuery, ObjectId, UpdateQuery } from "mongoose";
 
-export class Service<T> {
-  model: Model<T>
-  logger: Logger
+export abstract class Service<T> {
+  abstract readonly model: ModelType<T>
+  abstract readonly logger: Logger
 
   async create (data: Partial<T>): Promise<DocumentType<T>> {
     this.logger.verbose(`Operation: create.\n Data: ${JSON.stringify(data, null, 2)}`)
@@ -16,7 +17,12 @@ export class Service<T> {
     return await this.model.findById(id)
   }
 
-  async findOneByParam (filter: FilterQuery<T>): Promise<DocumentType<T> | null> {
+  async find (): Promise<DocumentType<T>[] | []> {
+    this.logger.verbose(`Operation: find.`)
+    return await this.model.find()
+  }
+
+  async findOneByParam (filter: FilterQuery<DocumentType<T>>): Promise<DocumentType<T> | null> {
     this.logger.verbose(`Operation: findByParam.\n filterQuery: ${JSON.stringify(filter, null, 2)}`)
     return await this.model.findOne(filter)
   }
@@ -37,7 +43,7 @@ export class Service<T> {
     return value as DocumentType<T>
   }
 
-  async upsertByParam (filter: FilterQuery<T>, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T>> {
+  async upsertByParam (filter: FilterQuery<DocumentType<T>>, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T>> {
     this.logger.verbose(`Operation: upsertByParam.\n filterQuery: ${JSON.stringify(filter, null, 2)}. \n Data: ${JSON.stringify(data, null, 2)}`)
     const { value } = await this.model.findOneAndUpdate(filter, data, { upsert: true, rawResult: true, new: true })
     return value as DocumentType<T>

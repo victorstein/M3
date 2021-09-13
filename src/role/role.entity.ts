@@ -1,21 +1,22 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
+import Base from 'base/base.entity'
 import { Roles } from './types/role.types'
-import { Prop, Schema } from '@nestjs/mongoose'
+import { modelOptions, prop } from '@typegoose/typegoose'
 
 @ObjectType()
-@Schema({ timestamps: true })
-export class Role {
+@modelOptions({ schemaOptions: { timestamps: true } })
+export class Role extends Base {
   @Field(() => ID)
   id: string
 
   @Field({ nullable: false })
-  @Prop({ required: true })
+  @prop({ required: true })
   name: string
 
-  @Prop({ required: true, enum: Roles, index: true, immutable: true })
+  @prop({ required: true, enum: Roles, index: true, immutable: true })
   type: Roles
 
   @Field()
-  @Prop({ required: true })
+  @prop({ required: true })
   description: string
 }

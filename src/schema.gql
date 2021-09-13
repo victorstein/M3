@@ -3,11 +3,25 @@
 # ------------------------------------------------------
 
 type Role {
+  createdBy: String
+  lastUpdatedBy: String
   id: ID!
   name: String!
   description: String!
 }
 
+type User {
+  createdBy: String
+  lastUpdatedBy: String
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  role: Role!
+  emailVerified: Boolean!
+}
+
 type Query {
-  hello: String!
+  getAllUsers: [User!]
+  getAllRoles: [Role!]
 }

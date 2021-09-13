@@ -11,8 +11,8 @@ import { RoleModule } from './role/role.module';
     EnvValidation,
     DBConnection,
     graphqlConfig,
-    RoleModule,
-    UserModule
+    UserModule,
+    RoleModule
   ],
   controllers: [AppController],
   providers: [AppService]
