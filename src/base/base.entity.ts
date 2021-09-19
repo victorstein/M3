@@ -1,6 +1,6 @@
 import { DocumentType, post, pre, prop, Ref } from '@typegoose/typegoose'
-import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from 'user/user.entity';
+import { Field, ObjectType } from '@nestjs/graphql'
+import { User } from 'user/user.entity'
 
 @post<Base>('findOneAndUpdate', function (doc: any, next) {
   const { lastErrorObject: { updatedExisting }, value } = doc

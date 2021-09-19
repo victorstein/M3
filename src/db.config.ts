@@ -1,14 +1,14 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { MongooseModule, MongooseModuleOptions, MongooseOptionsFactory } from "@nestjs/mongoose";
-import { IEnv } from "./env.types";
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { MongooseModule, MongooseModuleOptions, MongooseOptionsFactory } from '@nestjs/mongoose'
+import { IEnv } from './env.types'
 
 @Injectable()
 class MongooseConfigService implements MongooseOptionsFactory {
   @Inject()
   private readonly configService: ConfigService<IEnv>
 
-  createMongooseOptions(): MongooseModuleOptions {
+  createMongooseOptions (): MongooseModuleOptions {
     const DB_URL = this.configService.get('DB_URL')
     const ENV = this.configService.get('NODE_ENV')
 
@@ -19,7 +19,7 @@ class MongooseConfigService implements MongooseOptionsFactory {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false
-    };
+    }
   }
 }
 

@@ -1,16 +1,16 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from './user.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { UserService } from './user.service'
 import { mock } from 'jest-mock-extended'
-import { Logger } from '@nestjs/common';
-import { getModelToken } from '@nestjs/mongoose';
-import { DocumentType } from 'base/base.types';
-import { User } from './user.entity';
-import { RoleService } from 'role/role.service';
-import { Roles } from 'role/types/role.types';
-import { Role } from 'role/role.entity';
-import { Model } from 'mongoose';
+import { Logger } from '@nestjs/common'
+import { getModelToken } from '@nestjs/mongoose'
+import { User } from './user.entity'
+import { RoleService } from 'role/role.service'
+import { Roles } from 'role/types/role.types'
+import { Role } from 'role/role.entity'
+import { Model } from 'mongoose'
 import * as generator from 'generate-password'
 import * as argon2 from 'argon2'
+import { DocumentType } from '@typegoose/typegoose'
 
 const logger = mock<Logger>()
 const userModel = mock<Model<User>>()
@@ -19,7 +19,7 @@ const mockGenerator = jest.spyOn(generator, 'generate')
 const mockArgon = jest.spyOn(argon2, 'hash')
 
 describe('UserService', () => {
-  let service: UserService;
+  let service: UserService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -28,34 +28,34 @@ describe('UserService', () => {
         { provide: Logger, useValue: logger },
         { provide: getModelToken('User'), useValue: userModel },
         { provide: RoleService, useValue: roleService }
-      ],
-    }).compile();
+      ]
+    }).compile()
 
-    service = module.get<UserService>(UserService);
-  });
+    service = module.get<UserService>(UserService)
+  })
 
   beforeEach(() => {
     jest.clearAllMocks()
     // Reset the implementation to resolve for every test
-    roleService.findOneByParam.mockResolvedValue({} as DocumentType<Role>)
-    userModel.findOne.mockResolvedValue({ _id: 'founduser' } as DocumentType<User>)
+    roleService.findOneByParam.mockResolvedValue({} as const as DocumentType<Role>)
+    userModel.findOne.mockResolvedValue({ _id: 'founduser' } as const as DocumentType<User>)
   })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+    expect(service).toBeDefined()
+  })
 
   describe('FindOneByRole', () => {
     it('Should log the operation and role when its invoked', async () => {
       await service.findOneByRole(Roles.ADMIN)
       expect(logger.verbose).toHaveBeenCalledWith(`Operation: findOneByRole. \n role: ${Roles.ADMIN}`)
     })
-    
+
     it('Should return null if the role service cant find a role', async () => {
       roleService.findOneByParam.mockResolvedValue(null)
       await expect(service.findOneByRole(Roles.ADMIN))
-      .resolves
-      .toEqual(null)
+        .resolves
+        .toEqual(null)
     })
 
     it('Should return the user if the role and a user with that role were found', async () => {
@@ -63,7 +63,7 @@ describe('UserService', () => {
         .resolves
         .toMatchObject({ _id: 'founduser' })
     })
-    
+
     it('Should attempt to look for the user if the role was found', async () => {
       await service.findOneByRole(Roles.ADMIN)
       expect(userModel.findOne).toHaveBeenCalled()
@@ -86,7 +86,7 @@ describe('UserService', () => {
         numbers: true,
         strict: true,
         symbols: true,
-        uppercase: true,
+        uppercase: true
       })
     })
 
@@ -108,4 +108,4 @@ describe('UserService', () => {
       expect(mockArgon).toHaveBeenCalledWith('', { type: argon2.argon2i })
     })
   })
-});
+})

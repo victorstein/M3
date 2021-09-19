@@ -24,4 +24,5 @@ type User {
 type Query {
   getAllUsers: [User!]
   getAllRoles: [Role!]
+  login(email: String!, password: String!): String!
 }

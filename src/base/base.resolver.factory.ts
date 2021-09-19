@@ -1,5 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { ResolveField, Query, Root, Resolver } from '@nestjs/graphql'
+import { JWTCookieGuard } from 'auth/authStrategies/jwt-cookie.guard'
 import { UserService } from 'user/user.service'
 import Base from './base.entity'
 import { Service } from './base.service'
@@ -9,13 +10,14 @@ export const ResolverFactory = <T>(Entity: Constructor<T>): AbstractConstructor<
   const entityName = Entity.name
 
   @Injectable()
-  @Resolver(() => Base)
+  @Resolver(() => Base, { isAbstract: true })
   abstract class BaseResolver {
     @Inject() userService: UserService
     abstract readonly service: Service<T>
-  
+
+    @UseGuards(JWTCookieGuard)
     @Query(() => [Entity], { name: `getAll${entityName}s`, nullable: true })
-    async getAll () {
+    async getAll (): Promise<T[] | []> {
       return await this.service.find()
     }
 
@@ -25,6 +27,6 @@ export const ResolverFactory = <T>(Entity: Constructor<T>): AbstractConstructor<
       return user?.fullName ?? 'System'
     }
   }
-  
+
   return BaseResolver
 }

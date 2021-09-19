@@ -1,8 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { modelOptions, Ref } from '@typegoose/typegoose'
+import { modelOptions, Ref, prop } from '@typegoose/typegoose'
 import Base from 'base/base.entity'
 import { Role } from 'role/role.entity'
-import { prop } from '@typegoose/typegoose'
 
 @ObjectType()
 @modelOptions({ schemaOptions: { timestamps: true } })
