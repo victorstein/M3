@@ -22,6 +22,7 @@ export class EnvironmentVariables implements IEnv {
   @IsDefined() @IsString() @MinLength(30) JWT_SECRET: string
   @IsDefined() @IsString() @MinLength(30) REFRESH_JWT_SECRET: string
   @IsDefined() @IsString() @MinLength(30) EMAIL_SECRET: string
+  @IsDefined() @IsString() @MinLength(30) COOKIE_SECRET: string
   // EMAIL VARIABLES
   @IsString() @IsFQDN() EMAIL_HOST: string = 'smtp.gmail.com'
   @IsNumber() EMAIL_TLS_PORT: number = 587
@@ -31,11 +32,11 @@ export class EnvironmentVariables implements IEnv {
   // DB_VARIABLES
   @IsUrl({ require_valid_protocol: false }) DB_URL: string
   // SENTRY
-  @IsOptional()	@IsUrl() SENTRY_DSN: string
-  @IsOptional()	@IsString() SENTRY_SERVER_NAME: string
+  @IsOptional() @IsUrl() SENTRY_DSN: string
+  @IsOptional() @IsString() SENTRY_SERVER_NAME: string
 }
 
-export function validateEnv (config: Record<string, unknown>) {
+export function validateEnv (config: Record<string, unknown>): EnvironmentVariables {
   const validateConfig = plainToClass(
     EnvironmentVariables,
     config,
@@ -47,12 +48,13 @@ export function validateEnv (config: Record<string, unknown>) {
     {
       skipMissingProperties: false,
       stopAtFirstError: true,
-      forbidUnknownValues: true 
+      forbidUnknownValues: true
     }
   )
 
   if (errors.length > 0) {
-    throw new Error(errors.toString())
+    const parsedErrors = errors.flatMap(error => Object.values(error.constraints ?? {}))
+    throw new Error(parsedErrors.toString())
   }
 
   return validateConfig

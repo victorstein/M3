@@ -1,18 +1,20 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DBConnection } from './db.config';
-import { EnvValidation } from './env.validation';
-import { graphqlConfig } from './graphql.config';
-import { UserModule } from './user/user.module';
-import { RoleModule } from './role/role.module';
+import { Module } from '@nestjs/common'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { DBConnection } from './db.config'
+import { EnvValidation } from './env.validation'
+import { graphqlConfig } from './graphql.config'
+import { UserModule } from './user/user.module'
+import { RoleModule } from './role/role.module'
+import { AuthModule } from './auth/auth.module'
 @Module({
   imports: [
     EnvValidation,
     DBConnection,
     graphqlConfig,
     UserModule,
-    RoleModule
+    RoleModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService]

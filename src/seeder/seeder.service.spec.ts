@@ -1,20 +1,19 @@
-import { Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Test, TestingModule } from '@nestjs/testing';
-import { DocumentType } from 'base/base.types';
-import { IEnv } from 'env.types';
-import { mock } from 'jest-mock-extended';
-import { Role } from 'role/role.entity';
-import { RoleService } from 'role/role.service';
-import { User } from 'user/user.entity';
-import { UserService } from 'user/user.service';
-import { SeederService } from './seeder.service';
+import { Logger } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { Test, TestingModule } from '@nestjs/testing'
+import { DocumentType } from '@typegoose/typegoose'
+import { IEnv } from 'env.types'
+import { mock } from 'jest-mock-extended'
+import { Role } from 'role/role.entity'
+import { RoleService } from 'role/role.service'
+import { User } from 'user/user.entity'
+import { UserService } from 'user/user.service'
+import { SeederService } from './seeder.service'
 
 const mockUserService = mock<UserService>()
 const mockRoleService = mock<RoleService>()
 const mockLogger = mock<Logger>()
 const mockConfigService = mock<ConfigService<IEnv>>()
-
 
 jest.mock('role/types/roleTypes', () => ({
   __esModule: true,
@@ -22,9 +21,9 @@ jest.mock('role/types/roleTypes', () => ({
 }))
 
 describe('SeederService', () => {
-  let service: SeederService;
+  let service: SeederService
 
-  beforeEach(async () => {    
+  beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SeederService,
@@ -32,32 +31,32 @@ describe('SeederService', () => {
         { provide: RoleService, useValue: mockRoleService },
         { provide: Logger, useValue: mockLogger },
         { provide: ConfigService, useValue: mockConfigService }
-      ],
-    }).compile();
+      ]
+    }).compile()
 
-    service = module.get<SeederService>(SeederService);
-  });
+    service = module.get<SeederService>(SeederService)
+  })
 
   beforeEach(() => {
     jest.clearAllMocks()
     // Reset default value for the mocks
-    mockUserService.findOneByRole.mockResolvedValue({} as DocumentType<User>)
-    mockRoleService.findOneByParam.mockResolvedValue({ _id: 'foundRole' } as DocumentType<Role>)
+    mockUserService.findOneByRole.mockResolvedValue({} as const as DocumentType<User>)
+    mockRoleService.findOneByParam.mockResolvedValue({ _id: 'foundRole' } as const as DocumentType<Role>)
     mockConfigService.get.mockReturnValue('test@test.test')
   })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+    expect(service).toBeDefined()
+  })
 
   describe('seedRoles', () => {
-    it('Should call the upsertByParam method from the roleService with the right params', async () => {     
+    it('Should call the upsertByParam method from the roleService with the right params', async () => {
       await service.seedRoles()
       expect(mockRoleService.upsertByParam).toHaveBeenNthCalledWith(
         1,
         { name: 'test' },
         {
-          description: `Test role.`,
+          description: 'Test role.',
           name: 'test',
           type: 'test'
         }
@@ -66,7 +65,7 @@ describe('SeederService', () => {
         2,
         { name: 'test2' },
         {
-          description: `Test2 role.`,
+          description: 'Test2 role.',
           name: 'test2',
           type: 'test2'
         }
@@ -115,4 +114,4 @@ describe('SeederService', () => {
       expect(service.seedRoles).toHaveBeenCalledTimes(1)
     })
   })
-});
+})

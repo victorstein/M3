@@ -1,7 +1,7 @@
-import { Logger } from "@nestjs/common";
-import { DocumentType } from "@typegoose/typegoose";
-import { ModelType } from "@typegoose/typegoose/lib/types";
-import { FilterQuery, ObjectId, UpdateQuery } from "mongoose";
+import { Logger } from '@nestjs/common'
+import { DocumentType } from '@typegoose/typegoose'
+import { ModelType } from '@typegoose/typegoose/lib/types'
+import { FilterQuery, ObjectId, UpdateQuery } from 'mongoose'
 
 export abstract class Service<T> {
   abstract readonly model: ModelType<T>
@@ -12,13 +12,13 @@ export abstract class Service<T> {
     return await this.model.create(data)
   }
 
-  async findById (id: ObjectId): Promise<DocumentType<T> | null> {
+  async findById (id: ObjectId | string): Promise<DocumentType<T> | null> {
     this.logger.verbose(`Operation: findById.\n Id: ${String(id)}`)
     return await this.model.findById(id)
   }
 
-  async find (): Promise<DocumentType<T>[] | []> {
-    this.logger.verbose(`Operation: find.`)
+  async find (): Promise<Array<DocumentType<T>> | []> {
+    this.logger.verbose('Operation: find.')
     return await this.model.find()
   }
 
@@ -27,17 +27,17 @@ export abstract class Service<T> {
     return await this.model.findOne(filter)
   }
 
-  async updateOneById (id: ObjectId, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T> | null> {
+  async updateOneById (id: String | string, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T> | null> {
     this.logger.verbose(`Operation: updateOneById.\n Id: ${String(id)}. \n Data: ${JSON.stringify(data, null, 2)}`)
     return await this.model.findByIdAndUpdate(id, data, { new: true })
   }
 
-  async deleteOneById (id: ObjectId): Promise<void> {
+  async deleteOneById (id: ObjectId | string): Promise<void> {
     this.logger.verbose(`Operation: deleteOneById.\n Id: ${String(id)}`)
     await this.model.findByIdAndDelete(id)
   }
 
-  async upsertById (id: ObjectId, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T>> {
+  async upsertById (id: ObjectId | string, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T>> {
     this.logger.verbose(`Operation: upsertById.\n Id: ${String(id)}. \n Data: ${JSON.stringify(data, null, 2)}`)
     const { value } = await this.model.findByIdAndUpdate(id, data, { upsert: true, rawResult: true, new: true })
     return value as DocumentType<T>

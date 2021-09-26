@@ -6,7 +6,7 @@ export class Seeder {
   @Inject() logger: Logger
   @Inject() seederService: SeederService
 
-  async seed () {
+  async seed (): Promise<void> {
     try {
       this.logger.verbose('Started Seeding...')
       await this.seederService.seedAdmin()
