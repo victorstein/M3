@@ -28,8 +28,15 @@ export class User extends Base {
   @prop({ ref: () => Role, required: true })
   role: Ref<Role>
 
-  @prop({ default: 1 })
+  @prop({ default: 0 })
   tokenVersion: number
+
+  @prop({ default: 0 })
+  lastSigned: number
+
+  // Used to invalidate the password reset link in case it hasn't expired but has been used
+  @prop({ default: 0 })
+  passwordRecoveryVersion: number
 
   @Field()
   @prop({ default: false })

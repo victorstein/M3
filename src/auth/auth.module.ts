@@ -2,7 +2,7 @@ import { Logger, Module } from '@nestjs/common'
 import { UserModule } from 'user/user.module'
 import { AuthResolver } from './auth.resolver'
 import { AuthService } from './auth.service'
-import { JWTCookieStrategy } from './authStrategies/jwt-cockie.strategy'
+import { JWTCookieStrategy } from './authStrategies/jwt-coockie.strategy'
 
 @Module({
   imports: [UserModule],

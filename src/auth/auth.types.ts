@@ -1,5 +1,6 @@
 import { DocumentType } from '@typegoose/typegoose'
 import { User } from 'user/user.entity'
+import * as jwt from 'jsonwebtoken'
 
 export enum AuthStrategies {
   JWT_COOKIE = 'jwt-cookie'
@@ -10,10 +11,12 @@ export enum CookieNames {
   REFRESH = 'refresh'
 }
 
-export interface IPayload {
+export interface Payload {
   version: number
-  user: string
+  userId: string
 }
+
+export type IPayload = Payload & jwt.JwtPayload
 
 export enum JWTErrorTypes {
   EXPIRED = 'TokenExpiredError',
@@ -30,3 +33,5 @@ export interface GenerateTokenArgs {
   user: DocumentType<User>
   isRefreshToken?: boolean
 }
+
+export const cookieOptions = { httpOnly: true, signed: true, secure: process.env.NODE_ENV === 'production' }

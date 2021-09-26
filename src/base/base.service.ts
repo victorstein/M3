@@ -27,17 +27,17 @@ export abstract class Service<T> {
     return await this.model.findOne(filter)
   }
 
-  async updateOneById (id: ObjectId, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T> | null> {
+  async updateOneById (id: String | string, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T> | null> {
     this.logger.verbose(`Operation: updateOneById.\n Id: ${String(id)}. \n Data: ${JSON.stringify(data, null, 2)}`)
     return await this.model.findByIdAndUpdate(id, data, { new: true })
   }
 
-  async deleteOneById (id: ObjectId): Promise<void> {
+  async deleteOneById (id: ObjectId | string): Promise<void> {
     this.logger.verbose(`Operation: deleteOneById.\n Id: ${String(id)}`)
     await this.model.findByIdAndDelete(id)
   }
 
-  async upsertById (id: ObjectId, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T>> {
+  async upsertById (id: ObjectId | string, data: UpdateQuery<DocumentType<T>>): Promise<DocumentType<T>> {
     this.logger.verbose(`Operation: upsertById.\n Id: ${String(id)}. \n Data: ${JSON.stringify(data, null, 2)}`)
     const { value } = await this.model.findByIdAndUpdate(id, data, { upsert: true, rawResult: true, new: true })
     return value as DocumentType<T>

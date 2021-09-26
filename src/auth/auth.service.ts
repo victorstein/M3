@@ -46,7 +46,7 @@ export class AuthService {
       const secret = this.configService.get(`${environmentSecret}_SECRET`, '')
       const expiresIn = this.configService.get(`${environmentSecret}_EXP`, '')
 
-      const payload: IPayload = { version: user.tokenVersion, user: user._id }
+      const payload: IPayload = { version: user.tokenVersion, userId: user._id }
       const token = jwt.sign(payload, secret, { expiresIn })
       return token
     } catch (error) {

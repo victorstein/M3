@@ -3,20 +3,10 @@ import { Field, ObjectType } from '@nestjs/graphql'
 import { User } from 'user/user.entity'
 
 @post<Base>('findOneAndUpdate', function (doc: any, next) {
-  const { lastErrorObject: { updatedExisting }, value } = doc
-  const base: DocumentType<Base> = value
+  const base: DocumentType<Base> = doc
   const userId = undefined
 
-  const isNew = updatedExisting !== true
-
-  if (isNew && userId !== null) {
-    // Set the createdby value
-    base.set({ createdBy: userId })
-    return base.save({ validateBeforeSave: false })
-      .then(() => next())
-  }
-
-  if (!isNew && userId !== null) {
+  if (userId !== undefined) {
     // Set the lastUpdatedBy value
     base.set({ lastUpdatedBy: userId })
     return base.save({ validateBeforeSave: false })
