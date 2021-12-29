@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { modelOptions, Ref, prop } from '@typegoose/typegoose'
+import { AuthTypes } from 'auth/auth.types'
 import Base from 'base/base.entity'
 import { Role } from 'role/role.entity'
 
@@ -41,6 +42,14 @@ export class User extends Base {
   @Field()
   @prop({ default: false })
   emailVerified: boolean
+
+  @Field({ nullable: true })
+  @prop({ required: false })
+  socialId: string
+
+  @Field(() => AuthTypes, { nullable: false })
+  @prop({ required: true, enum: AuthTypes })
+  signupType: AuthTypes
 
   public get fullName (): string {
     return `${this.firstName} ${this.lastName}`
