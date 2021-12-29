@@ -13,11 +13,11 @@ export class AuthResolver {
   @Inject() userService: UserService
 
   @Query(() => String)
-  async login (@Args() { email, password }: LoginArgs, @Context() { res }: IContext): Promise<string> {
-    const user = await this.authService.validateUser(email, password)
+  async login (@Args() loginArgs: LoginArgs, @Context() { res }: IContext): Promise<string> {
+    const user = await this.authService.validateUser(loginArgs);
 
-    const token = await this.authService.generateToken({ user })
-    const refreshToken = await this.authService.generateToken({ user, isRefreshToken: true })
+    const token = this.authService.generateToken({ user })
+    const refreshToken = this.authService.generateToken({ user, isRefreshToken: true })
 
     // Get the new Issued at date
     const newIat = this.authService.validateToken({ token: refreshToken, isRefreshToken: true }) as IPayload
