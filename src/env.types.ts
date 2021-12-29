@@ -35,4 +35,6 @@ export interface IEnv {
   SENTRY_DSN: string
   SENTRY_SERVER_NAME: string
   LOG_LEVEL: LogLevels
+  GOOGLE_JWK_URI: string
+  FACEBOOK_JWK_URI: string
 }
