@@ -18,7 +18,7 @@ export class SeederService {
       await this.roleService.upsertByParam(
         { name: role },
         {
-          description: `${capitalizedRole} role.`,
+          description: `${capitalizedRole} role`,
           name: role,
           type: role
         }
