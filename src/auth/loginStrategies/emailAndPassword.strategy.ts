@@ -1,17 +1,17 @@
-import { Injectable, InternalServerErrorException, Logger, UnauthorizedException } from "@nestjs/common";
-import { DocumentType } from "@typegoose/typegoose";
-import { ILogin, LoginArgs } from "auth/auth.types";
-import { User } from "user/user.entity";
-import { UserService } from "user/user.service";
+import { Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common'
+import { DocumentType } from '@typegoose/typegoose'
+import { Credentials, ILogin } from 'auth/auth.types'
+import { User } from 'user/user.entity'
+import { UserService } from 'user/user.service'
 
 @Injectable()
 export class EmailAndPasswordAuthStrategy implements ILogin {
-  constructor(
+  constructor (
     private readonly userService: UserService,
     private readonly logger: Logger
   ) {}
 
-  async login ({ email, password }: LoginArgs): Promise<DocumentType<User>> {
+  async login ({ email, password }: Credentials): Promise<DocumentType<User>> {
     try {
       const user = await this.userService.findOneByParam({ email: email })
       if (user == null) { throw new UnauthorizedException() }

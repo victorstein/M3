@@ -36,7 +36,7 @@ export class EnvironmentVariables implements IEnv {
   @IsOptional() @IsString() SENTRY_SERVER_NAME: string
   // SOCIAL_LOGIN_VARIABLES
   @IsOptional() @IsUrl() GOOGLE_JWK_URI: string = 'https://www.googleapis.com/oauth2/v3/certs'
-  @IsOptional() @IsUrl() FACEBOOK_JWK_URI: string = 'https://www.facebook.com/.well-known/oauth/openid/jwks/'
+  @IsOptional() @IsUrl() FACEBOOK_GRAPH_URI: string = 'https://graph.facebook.com/v12.0'
 }
 
 export function validateEnv (config: Record<string, unknown>): EnvironmentVariables {
