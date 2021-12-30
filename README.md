@@ -36,7 +36,7 @@ SENTRY_DSN | Sentry DSN string | FALSE |
 SENTRY_SERVER_NAME | Servername that will be sent to sentry | FALSE
 LOG_LEVEL | Log level for winston | FALSE | defaults to `verbose` in development and `error` in production
 GOOGLE_JWK_URI | Google known json web keys url | FALSE | default https://www.googleapis.com/oauth2/v3/certs
-FACEBOOK_JWK_URI | Facebook known json web keys url | FALSE | default https://www.facebook.com/.well-known/oauth/openid/jwks/
+FACEBOOK_GRAPH_URI | Facebook known json web keys url | FALSE | default https://www.facebook.com/.well-known/oauth/openid/jwks/
 ## Running the app
 
 ```bash
