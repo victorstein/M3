@@ -40,7 +40,7 @@ export enum AuthTypes {
   FACEBOOK = 'facebook'
 }
 
-type Credentials = {
+export interface Credentials {
   email: string
   password: string
   token: string
@@ -50,24 +50,30 @@ export type LoginArgs = {
   authType: AuthTypes
 } & Credentials
 export interface ILogin {
-  login(args: Credentials): Promise<DocumentType<User>>
+  login: (args: Credentials) => Promise<DocumentType<User>>
 }
 
 export const cookieOptions = { httpOnly: true, signed: true, secure: process.env.NODE_ENV === 'production' }
 
 export interface GoogleUser {
-  iss: string;
-  azp: string;
-  aud: string;
-  sub: string;
-  email: string;
-  email_verified: boolean;
-  at_hash: string;
-  name: string;
-  picture: string;
-  given_name: string;
-  family_name: string;
-  locale: string;
-  iat: number;
-  exp: number;
+  iss: string
+  azp: string
+  aud: string
+  sub: string
+  email: string
+  email_verified: boolean
+  at_hash: string
+  name: string
+  picture: string
+  given_name: string
+  family_name: string
+  locale: string
+  iat: number
+  exp: number
+}
+
+export interface FacebookUser {
+  email: string
+  name: string
+  id: string
 }
