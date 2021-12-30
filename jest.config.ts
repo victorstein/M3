@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  setupFilesAfterEnv: ["jest-extended"],
+  setupFilesAfterEnv: ['jest-extended'],
   collectCoverage: true,
   modulePaths: ['<rootDir>/src'],
   displayName: {
@@ -13,7 +13,7 @@ module.exports = {
   ],
   silent: false,
   collectCoverageFrom: [
-    "src/**/*.ts",
-    "!**/node_modules/**"
+    'src/**/*.ts',
+    '!**/node_modules/**'
   ]
-};
+}

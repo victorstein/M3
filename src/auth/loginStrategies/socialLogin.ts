@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common'
 import * as jwksClient from 'jwks-rsa'
 import * as jwt from 'jsonwebtoken'
-import { GoogleUser } from "auth/auth.types";
+import { GoogleUser } from 'auth/auth.types'
 
 @Injectable()
 export abstract class SocialLogin {
@@ -13,28 +13,30 @@ export abstract class SocialLogin {
 
     const key = await new Promise<string>((resolve, reject) => {
       client.getSigningKey(kid, (err, key) => {
-        if (err) { reject(err) }
-        const signingKey = key.getPublicKey();
+        if (err !== null) return reject(err)
+        const signingKey = key.getPublicKey()
         resolve(signingKey)
-      });
+      })
     })
 
     return key
   }
 
-  async validateToken(token: string): Promise<GoogleUser | unknown> {
-    return new Promise((resolve, reject) => {
+  async validateToken (token: string): Promise<GoogleUser | unknown> {
+    return await new Promise((resolve, reject) => {
+      console.log(token)
       jwt.verify(
         token,
-        async ({ kid }, callback) => {
-          const signingKey = await this.getSigningKey(kid)
-          callback(null, signingKey)
+        ({ kid }, callback) => {
+          this.getSigningKey(kid)
+            .then((signingKey) => callback(null, signingKey))
+            .catch(e => reject(e))
         },
         {},
         (err, decoded: GoogleUser | unknown) => {
-          if (err !== null) return reject(err);
-          resolve(decoded);
-        });
-    });
+          if (err !== null) return reject(err)
+          resolve(decoded)
+        })
+    })
   }
 }

@@ -14,7 +14,7 @@ export class AuthResolver {
 
   @Query(() => String)
   async login (@Args() loginArgs: LoginArgs, @Context() { res }: IContext): Promise<string> {
-    const user = await this.authService.validateUser(loginArgs);
+    const user = await this.authService.validateUser(loginArgs)
 
     const token = this.authService.generateToken({ user })
     const refreshToken = this.authService.generateToken({ user, isRefreshToken: true })
