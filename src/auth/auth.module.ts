@@ -4,6 +4,7 @@ import { AuthResolver } from './auth.resolver'
 import { AuthService } from './auth.service'
 import { JWTCookieStrategy } from './authStrategies/jwt-coockie.strategy'
 import { EmailAndPasswordAuthStrategy } from './loginStrategies/emailAndPassword.strategy'
+import { FacebookAuthStrategy } from './loginStrategies/facebook.strategy'
 import { GoogleAuthStrategy } from './loginStrategies/google.strategy'
 import { LoginFactory } from './loginStrategies/loginFactory'
 
@@ -16,6 +17,7 @@ import { LoginFactory } from './loginStrategies/loginFactory'
     JWTCookieStrategy,
     LoginFactory,
     GoogleAuthStrategy,
+    FacebookAuthStrategy,
     EmailAndPasswordAuthStrategy
   ],
   exports: [AuthService]
