@@ -18,7 +18,6 @@ export class AuthService {
   async validateUser ({ authType, ...rest }: LoginArgs): Promise<DocumentType<User>> {
     const authenticator = this.loginFactory.getLoginStrategy(authType)
     const user = await authenticator.login(rest)
-    console.log(user)
     return user
   }
 
