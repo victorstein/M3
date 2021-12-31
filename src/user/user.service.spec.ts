@@ -38,7 +38,7 @@ describe('UserService', () => {
     jest.clearAllMocks()
     // Reset the implementation to resolve for every test
     roleService.findOneByParam.mockResolvedValue({} as const as DocumentType<Role>)
-    userModel.findOne.mockResolvedValue({ _id: 'founduser' } as const as DocumentType<User>)
+    userModel.findOne.mockResolvedValue({ _id: 'founduser' } as unknown as null)
   })
 
   it('should be defined', () => {
