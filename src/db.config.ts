@@ -16,9 +16,7 @@ class MongooseConfigService implements MongooseOptionsFactory {
       uri: DB_URL,
       useNewUrlParser: true,
       dbName: ENV === 'test' ? 'test' : 'm3',
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false
+      useUnifiedTopology: true
     }
   }
 }
