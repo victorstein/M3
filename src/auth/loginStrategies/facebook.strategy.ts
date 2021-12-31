@@ -31,7 +31,7 @@ export class FacebookAuthStrategy extends SocialLogin implements ILogin {
       })
       return data
     } catch (error) {
-      console.log(error)
+      this.logger.error(error)
       throw new Error(error)
     }
   }

@@ -24,7 +24,6 @@ export abstract class SocialLogin {
 
   async validateToken (token: string): Promise<GoogleUser | unknown> {
     return await new Promise((resolve, reject) => {
-      console.log(token)
       jwt.verify(
         token,
         ({ kid }, callback) => {
