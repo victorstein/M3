@@ -57,7 +57,7 @@ export function validateEnv (config: Record<string, unknown>): EnvironmentVariab
 
   if (errors.length > 0) {
     const parsedErrors = errors.flatMap(error => Object.values(error.constraints ?? {}))
-    throw new Error(parsedErrors.toString())
+    throw new Error(parsedErrors.toString().replace(/,/g, '\n'))
   }
 
   return validateConfig
