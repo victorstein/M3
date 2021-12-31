@@ -9,10 +9,12 @@ import { ConfigService } from '@nestjs/config'
 import { DocumentType } from '@typegoose/typegoose'
 import { User } from 'user/user.entity'
 import { IEnv } from 'env.types'
+import { LoginFactory } from 'auth/loginStrategies/loginFactory'
 
 const logger = mock<Logger>()
 const req = mock<Request>()
 const userService = mock<UserService>()
+const loginFactory = mock<LoginFactory>()
 
 const configService = mock<ConfigService<IEnv>>()
 /* @ts-expect-error */
@@ -49,6 +51,7 @@ describe('Jwt cookie auth strategy', () => {
         AuthService,
         { provide: ConfigService, useValue: configService },
         { provide: UserService, useValue: userService },
+        { provide: LoginFactory, useValue: loginFactory },
         { provide: Logger, useValue: logger }
       ]
     }).compile()
@@ -128,12 +131,12 @@ describe('Jwt cookie auth strategy', () => {
     })
   })
 
-  describe('refreshtoken', () => {
-    it('Should return false if the refreshToken payload is null', () => {})
-    it('Should look for the user with the userId in the payload', () => {})
-    it('Should return false if the user encoded in the payload doesn\'t exist', () => {})
-    it('Should return false if the token version in the payload is not the same as the one in the user', () => {})
-    it('Should update the user token version if the Issued at parameter doesn\'t match with the user', () => {})
-    it('Should return false if the Issued at parameters don\'t match', () => {})
+  describe('refresh token', () => {
+    it.todo('Should return false if the refreshToken payload is null')
+    it.todo('Should look for the user with the userId in the payload')
+    it.todo('Should return false if the user encoded in the payload doesn\'t exist')
+    it.todo('Should return false if the token version in the payload is not the same as the one in the user')
+    it.todo('Should update the user token version if the Issued at parameter doesn\'t match with the user')
+    it.todo('Should return false if the Issued at parameters don\'t match')
   })
 })

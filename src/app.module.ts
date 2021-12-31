@@ -4,17 +4,17 @@ import { AppService } from './app.service'
 import { DBConnection } from './db.config'
 import { EnvValidation } from './env.validation'
 import { graphqlConfig } from './graphql.config'
+import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
 import { RoleModule } from './role/role.module'
-import { AuthModule } from './auth/auth.module'
 @Module({
   imports: [
     EnvValidation,
     DBConnection,
     graphqlConfig,
-    UserModule,
     RoleModule,
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService]
