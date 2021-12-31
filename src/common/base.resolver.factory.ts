@@ -2,9 +2,9 @@ import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { ResolveField, Query, Root, Resolver } from '@nestjs/graphql'
 import { JWTCookieGuard } from 'auth/authStrategies/jwt-cookie.guard'
 import { UserService } from 'user/user.service'
-import Base from './base.entity'
 import { Service } from './base.service'
 import { AbstractConstructor, Constructor, BaseResolver } from './base.types'
+import { Base } from './base.entity'
 
 export const ResolverFactory = <T>(Entity: Constructor<T>): AbstractConstructor<BaseResolver<T>> => {
   const entityName = Entity.name
