@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import * as jwksClient from 'jwks-rsa'
 import * as jwt from 'jsonwebtoken'
 import { GoogleUser } from 'auth/auth.types'
@@ -33,7 +33,7 @@ export abstract class SocialLogin {
         },
         {},
         (err, decoded: GoogleUser | unknown) => {
-          if (err !== null) return reject(err)
+          if (err !== null) return reject(new UnauthorizedException(err.message))
           resolve(decoded)
         })
     })

@@ -29,7 +29,10 @@ export class GoogleAuthStrategy extends SocialLogin implements ILogin {
 
       return user
     } catch (error) {
-      this.logger.error(error.message)
+      this.logger.error(error)
+      if (error instanceof UnauthorizedException) {
+        throw error
+      }
       throw new InternalServerErrorException(error.message)
     }
   }

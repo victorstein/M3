@@ -31,8 +31,8 @@ export class FacebookAuthStrategy extends SocialLogin implements ILogin {
       })
       return data
     } catch (error) {
-      this.logger.error(error)
-      throw new Error(error)
+      this.logger.error(error.message)
+      throw new UnauthorizedException('invalid token')
     }
   }
 
@@ -45,7 +45,10 @@ export class FacebookAuthStrategy extends SocialLogin implements ILogin {
 
       return user
     } catch (error) {
-      this.logger.error(error.message)
+      this.logger.error(error)
+      if (error instanceof UnauthorizedException) {
+        throw error
+      }
       throw new InternalServerErrorException(error.message)
     }
   }
