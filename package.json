@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
+    "postbuild": "yarn seed:prod",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
