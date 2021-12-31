@@ -15,7 +15,7 @@ const mockRoleService = mock<RoleService>()
 const mockLogger = mock<Logger>()
 const mockConfigService = mock<ConfigService<IEnv>>()
 
-jest.mock('role/types/roleTypes', () => ({
+jest.mock('role/types/role.types', () => ({
   __esModule: true,
   Roles: { test: 'test', test2: 'test2' }
 }))
@@ -56,7 +56,7 @@ describe('SeederService', () => {
         1,
         { name: 'test' },
         {
-          description: 'Test role.',
+          description: 'Test role',
           name: 'test',
           type: 'test'
         }
@@ -65,7 +65,7 @@ describe('SeederService', () => {
         2,
         { name: 'test2' },
         {
-          description: 'Test2 role.',
+          description: 'Test2 role',
           name: 'test2',
           type: 'test2'
         }

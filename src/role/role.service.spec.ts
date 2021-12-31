@@ -1,5 +1,6 @@
-import { Role } from './role.entity'
+import { UserService } from 'user/user.service'
 import { RoleService } from './role.service'
+import { Role } from './role.entity'
 import { Model } from 'mongoose'
 import { getModelToken } from '@nestjs/mongoose'
 import { Logger } from '@nestjs/common'
@@ -8,6 +9,7 @@ import { mock } from 'jest-mock-extended'
 
 const mockRoleModel = mock<Model<Role>>()
 const mockLogger = mock<Logger>()
+const userService = mock<UserService>()
 
 describe('RoleService', () => {
   let service: RoleService
@@ -17,6 +19,7 @@ describe('RoleService', () => {
       providers: [
         RoleService,
         { provide: getModelToken('Role'), useValue: mockRoleModel },
+        { provide: UserService, useValue: userService },
         { provide: Logger, useValue: mockLogger }
       ]
     }).compile()

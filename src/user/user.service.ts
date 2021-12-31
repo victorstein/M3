@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { RoleService } from 'role/role.service'
-import { Service } from 'base/base.service'
+import { Service } from 'common/base.service'
 import { Roles } from 'role/types/role.types'
 import { User } from './user.entity'
 import * as generator from 'generate-password'

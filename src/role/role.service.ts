@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { Service } from 'base/base.service'
+import { Service } from 'common/base.service'
 import { Role } from './role.entity'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 

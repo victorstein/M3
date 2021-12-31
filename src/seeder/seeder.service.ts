@@ -1,5 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { AuthTypes } from 'auth/auth.types'
 import { IEnv } from 'env.types'
 import { RoleService } from 'role/role.service'
 import { Roles } from 'role/types/role.types'
@@ -59,7 +60,8 @@ export class SeederService {
           email: ADMIN_EMAIL,
           password: hashedPassword,
           role: adminRole?._id,
-          emailVerified: true
+          emailVerified: true,
+          signupType: AuthTypes.EMAIL_AND_PASSWORD
         })
 
         // await this.emailService.sendResetPasswordEmail(admin)

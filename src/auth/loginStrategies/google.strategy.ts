@@ -23,14 +23,16 @@ export class GoogleAuthStrategy extends SocialLogin implements ILogin {
   async login ({ token }: Credentials): Promise<DocumentType<User>> {
     try {
       const { email, sub } = await this.validateToken(token) as GoogleUser
-      console.log(await this.validateToken(token))
 
       const user = await this.userService.findOneByParam({ $or: [{ email }, { socialId: sub }] })
       if (user == null) { throw new UnauthorizedException() }
 
       return user
     } catch (error) {
-      this.logger.error(error.message)
+      this.logger.error(error)
+      if (error instanceof UnauthorizedException) {
+        throw error
+      }
       throw new InternalServerErrorException(error.message)
     }
   }

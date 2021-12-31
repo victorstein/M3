@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { UserService } from './user.service'
 import { mock } from 'jest-mock-extended'
 import { Logger } from '@nestjs/common'
 import { getModelToken } from '@nestjs/mongoose'
 import { User } from './user.entity'
 import { RoleService } from 'role/role.service'
 import { Roles } from 'role/types/role.types'
-import { Role } from 'role/role.entity'
 import { Model } from 'mongoose'
 import * as generator from 'generate-password'
 import * as argon2 from 'argon2'
 import { DocumentType } from '@typegoose/typegoose'
+import { UserService } from './user.service'
+import { Role } from 'role/role.entity'
 
 const logger = mock<Logger>()
 const userModel = mock<Model<User>>()

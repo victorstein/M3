@@ -1,6 +1,5 @@
-import { DocumentType, post, pre, prop, Ref } from '@typegoose/typegoose'
+import { DocumentType, post, pre, prop } from '@typegoose/typegoose'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { User } from 'user/user.entity'
 
 @post<Base>('findOneAndUpdate', function (doc: any, next) {
   const base: DocumentType<Base> = doc
@@ -29,14 +28,12 @@ import { User } from 'user/user.entity'
 })
 
 @ObjectType()
-class Base {
+export class Base {
   @Field(() => String, { nullable: true })
-  @prop({ ref: () => User, required: false })
-  createdBy: Ref<User>
+  @prop({ required: false })
+  createdBy: string
 
   @Field(() => String, { nullable: true })
-  @prop({ ref: () => User, required: false })
-  lastUpdatedBy: Ref<User>
+  @prop({ required: false })
+  lastUpdatedBy?: string
 }
-
-export default Base

@@ -1,7 +1,7 @@
+import { Base } from 'common/base.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { modelOptions, Ref, prop } from '@typegoose/typegoose'
 import { AuthTypes } from 'auth/auth.types'
-import Base from 'base/base.entity'
 import { Role } from 'role/role.entity'
 
 @ObjectType()
