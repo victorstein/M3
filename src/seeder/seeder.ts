@@ -11,7 +11,7 @@ export class Seeder {
       this.logger.verbose('Started Seeding...')
       await this.seederService.seedAdmin()
     } catch (e) {
-      this.logger.error('Seeding proccess failed')
+      this.logger.error('Seeding process failed')
     }
   }
 }
