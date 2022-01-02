@@ -107,11 +107,7 @@ export class JWTCookieStrategy extends PassportStrategy(Strategy, AuthStrategies
     // Save the new Iat unix timestamp in the user for refresh token validation
     await this.userService.updateOneById(newIat.userId, { [iat]: newIat.iat })
 
-    console.log('ISMOBILE', mobile)
     if (mobile) {
-      console.log('REQUEST HEADER', req.res?.setHeader)
-      console.log('NEW JWT', newJwt)
-      console.log('NEW REFRESH', newRefresh)
       req.res?.setHeader(CookieNames.JWT, newJwt)
       req.res?.setHeader(CookieNames.REFRESH, newRefresh)
     } else {
