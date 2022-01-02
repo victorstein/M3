@@ -4,7 +4,8 @@ import { mock } from 'jest-mock-extended'
 import { UserService } from 'user/user.service'
 import { ConfigService } from '@nestjs/config'
 import { Logger } from '@nestjs/common'
-import { LoginFactory } from './loginStrategies/loginFactory'
+import { LoginFactory } from './loginStrategies/login.factory'
+import { TokenFactory } from './tokenStrategies/token.factory'
 
 describe('AuthService', () => {
   let service: AuthService
@@ -12,6 +13,7 @@ describe('AuthService', () => {
   const mockConfigService = mock<ConfigService>()
   const mockLogger = mock<Logger>()
   const mockLoginFactory = mock<LoginFactory>()
+  const mockTokenFactory = mock<TokenFactory>()
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,6 +22,7 @@ describe('AuthService', () => {
         { provide: UserService, useValue: mockUserService },
         { provide: ConfigService, useValue: mockConfigService },
         { provide: LoginFactory, useValue: mockLoginFactory },
+        { provide: TokenFactory, useValue: mockTokenFactory },
         { provide: Logger, useValue: mockLogger }
       ]
     }).compile()

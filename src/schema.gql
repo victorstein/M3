@@ -18,8 +18,11 @@ type User {
   lastName: String!
   email: String!
   role: Role!
+
+  """Used to check if the user has verified the registered email"""
   emailVerified: Boolean!
-  socialId: String
+
+  """Used to determined how the user signed up"""
   signupType: AuthTypes!
 }
 
@@ -34,5 +37,9 @@ enum AuthTypes {
 type Query {
   getAllRoles: [Role!]
   getAllUsers: [User!]
+
+  """
+  Query used to login the user, the backend will determine if the request is mobile or desktop
+  """
   login(authType: AuthTypes = EMAIL_AND_PASSWORD, email: String, password: String, token: String): String!
 }

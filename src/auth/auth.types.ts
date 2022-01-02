@@ -11,6 +11,11 @@ export enum CookieNames {
   REFRESH = 'refresh'
 }
 
+export interface ICookies {
+  jwt: string
+  refresh: string
+}
+
 export interface Payload {
   version: number
   userId: string
@@ -24,20 +29,16 @@ export enum JWTErrorTypes {
   NOT_ACTIVE = 'NotBeforeError'
 }
 
-export interface ValidateTokenArgs {
-  token: string
-  isRefreshToken?: boolean
-}
-
-export interface GenerateTokenArgs {
-  user: DocumentType<User>
-  isRefreshToken?: boolean
-}
-
 export enum AuthTypes {
   EMAIL_AND_PASSWORD = 'emailAndPassword',
   GOOGLE = 'google',
   FACEBOOK = 'facebook'
+}
+
+export enum TokenType {
+  JWT = 'JWT_TOKEN',
+  REFRESH = 'REFRESH_TOKEN',
+  MOBILE = 'MOBILE_TOKEN'
 }
 
 export interface Credentials {
@@ -51,6 +52,21 @@ export type LoginArgs = {
 } & Credentials
 export interface ILogin {
   login: (args: Credentials) => Promise<DocumentType<User>>
+}
+
+export interface ValidateTokenArgs {
+  token: string
+  tokenType?: TokenType
+}
+
+export interface GenerateTokenArgs {
+  user: DocumentType<User>
+  tokenType?: TokenType
+}
+
+export interface IToken {
+  validateToken: (token: string) => IPayload
+  generateToken: (user: DocumentType<User>) => string
 }
 
 export const cookieOptions = { httpOnly: true, signed: true, secure: process.env.NODE_ENV === 'production' }
