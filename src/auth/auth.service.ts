@@ -2,13 +2,13 @@ import { Injectable, Logger } from '@nestjs/common'
 import { GenerateTokenArgs, IPayload, LoginArgs, TokenType, ValidateTokenArgs } from './auth.types'
 import { DocumentType } from '@typegoose/typegoose'
 import { User } from 'user/user.entity'
-import { LoginFactory } from './loginStrategies/login.factory'
 import { TokenFactory } from './tokenStrategies/token.factory'
+import { LoginFactory } from './loginStrategies/login.factory'
 
 @Injectable()
 export class AuthService {
   constructor (
-    private readonly TokenFactory: TokenFactory,
+    private readonly tokenFactory: TokenFactory,
     private readonly loginFactory: LoginFactory,
     private readonly logger: Logger
   ) {}
@@ -21,7 +21,7 @@ export class AuthService {
 
   validateToken ({ token, tokenType = TokenType.JWT }: ValidateTokenArgs): IPayload {
     try {
-      const TokenStrategy = this.TokenFactory.getTokenAuthorizer(tokenType)
+      const TokenStrategy = this.tokenFactory.getTokenAuthorizer(tokenType)
       return TokenStrategy.validateToken(token)
     } catch (error) {
       this.logger.error(error.message)
@@ -31,7 +31,7 @@ export class AuthService {
 
   generateToken ({ user, tokenType = TokenType.JWT }: GenerateTokenArgs): string {
     try {
-      const TokenStrategy = this.TokenFactory.getTokenAuthorizer(tokenType)
+      const TokenStrategy = this.tokenFactory.getTokenAuthorizer(tokenType)
       return TokenStrategy.generateToken(user)
     } catch (error) {
       this.logger.error(error.message)
