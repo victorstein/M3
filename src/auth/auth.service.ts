@@ -1,47 +1,38 @@
-import { Inject, Injectable, Logger } from '@nestjs/common'
-import { UserService } from 'user/user.service'
-import { GenerateTokenArgs, IPayload, JWTErrorTypes, LoginArgs, ValidateTokenArgs } from './auth.types'
-import * as jwt from 'jsonwebtoken'
-import { ConfigService } from '@nestjs/config'
-import { IEnv } from 'env.types'
+import { Injectable, Logger } from '@nestjs/common'
+import { GenerateTokenArgs, IPayload, LoginArgs, TokenType, ValidateTokenArgs } from './auth.types'
 import { DocumentType } from '@typegoose/typegoose'
 import { User } from 'user/user.entity'
-import { LoginFactory } from './loginStrategies/loginFactory'
+import { LoginFactory } from './loginStrategies/login.factory'
+import { TokenFactory } from './tokenStrategies/token.factory'
 
 @Injectable()
 export class AuthService {
-  @Inject() userService: UserService
-  @Inject() configService: ConfigService<IEnv>
-  @Inject() logger: Logger
-  @Inject() loginFactory: LoginFactory
+  constructor (
+    private readonly TokenFactory: TokenFactory,
+    private readonly loginFactory: LoginFactory,
+    private readonly logger: Logger
+  ) {}
 
-  async validateUser ({ authType, ...rest }: LoginArgs): Promise<DocumentType<User>> {
+  async authenticateUser ({ authType, ...rest }: LoginArgs): Promise<DocumentType<User>> {
     const authenticator = this.loginFactory.getLoginStrategy(authType)
     const user = await authenticator.login(rest)
     return user
   }
 
-  validateToken ({ token, isRefreshToken = false }: ValidateTokenArgs): IPayload | JWTErrorTypes.EXPIRED | null {
+  validateToken ({ token, tokenType = TokenType.JWT }: ValidateTokenArgs): IPayload {
     try {
-      const environmentSecret = isRefreshToken ? 'REFRESH_JWT_SECRET' : 'JWT_SECRET'
-      const secret = this.configService.get(environmentSecret, '')
-      return jwt.verify(token, secret) as IPayload
+      const TokenStrategy = this.TokenFactory.getTokenAuthorizer(tokenType)
+      return TokenStrategy.validateToken(token)
     } catch (error) {
       this.logger.error(error.message)
-      if (error.name === JWTErrorTypes.EXPIRED && !isRefreshToken) { return error.name }
-      return null
+      throw error
     }
   }
 
-  generateToken ({ user, isRefreshToken = false }: GenerateTokenArgs): string {
+  generateToken ({ user, tokenType = TokenType.JWT }: GenerateTokenArgs): string {
     try {
-      const environmentSecret = isRefreshToken ? 'REFRESH_JWT' : 'JWT'
-      const secret = this.configService.get(`${environmentSecret}_SECRET`, '')
-      const expiresIn = this.configService.get(`${environmentSecret}_EXP`, '')
-
-      const payload: IPayload = { version: user.tokenVersion, userId: user._id }
-      const token = jwt.sign(payload, secret, { expiresIn })
-      return token
+      const TokenStrategy = this.TokenFactory.getTokenAuthorizer(tokenType)
+      return TokenStrategy.generateToken(user)
     } catch (error) {
       this.logger.error(error.message)
       throw error
