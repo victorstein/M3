@@ -18,8 +18,10 @@ export interface IEnv {
   ADMIN_EMAIL: string
   JWT_SECRET: string
   REFRESH_JWT_SECRET: string
+  MOBILE_JWT_SECRET: string
   JWT_EXP: string
   REFRESH_JWT_EXP: string
+  MOBILE_JWT_EXP: string
   DB_URL: string
   DOMAIN_URL: string
   QUERY_COMPLEXITY_LIMIT: number
