@@ -22,34 +22,40 @@ export class User extends Base {
   @prop({ required: true, lowercase: true })
   email: string
 
-  @prop({ required: true })
-  password: string
-
   @Field(() => Role)
   @prop({ ref: () => Role, required: true })
   role: Ref<Role>
 
+  @Field({ description: 'Used to check if the user has verified the registered email' })
+  @prop({ default: false })
+  emailVerified: boolean
+
+  @Field(() => AuthTypes, { nullable: false, description: 'Used to determined how the user signed up' })
+  @prop({ required: true, enum: AuthTypes })
+  signupType: AuthTypes
+
+  // Used to blacklist tokens that were invalidated by password change or IAT validation failure
   @prop({ default: 0 })
   tokenVersion: number
 
+  // Used to determine that last time a refresh token was signed
   @prop({ default: 0 })
   lastSigned: number
+
+  // Used to determine that last time a mobile refresh token was signed
+  @prop({ default: 0 })
+  lastSignedMobile: number
 
   // Used to invalidate the password reset link in case it hasn't expired but has been used
   @prop({ default: 0 })
   passwordRecoveryVersion: number
 
-  @Field()
-  @prop({ default: false })
-  emailVerified: boolean
-
-  @Field({ nullable: true })
-  @prop({ required: false })
+  // Unique identifier provided by the social network used to signup
+  @prop({ required: false, index: true })
   socialId: string
 
-  @Field(() => AuthTypes, { nullable: false })
-  @prop({ required: true, enum: AuthTypes })
-  signupType: AuthTypes
+  @prop({ required: true })
+  password: string
 
   public get fullName (): string {
     return `${this.firstName} ${this.lastName}`
