@@ -15,10 +15,12 @@ Create a .env file with the following set up. (examples in parentheses)
 PORT| Port that the application runs | FALSE | 3002
 NODE_ENV| Environment variable | FALSE | development
 ADMIN_EMAIL | Email used to set up the first user | TRUE |
-TOKEN_SECRET | Secret used to encrypt JWT | TRUE
-REFRESH_TOKEN_SECRET | Secret used to encrypt Refresh token | TRUE
-TOKEN_EXP | JWT expiration | FALSE | 15m
-REFRESH_TOKEN_EXP | Refresh token expiration | FALSE | 1d
+JWT_SECRET | Secret used to encrypt JWT | TRUE
+REFRESH_JWT_SECRET | Secret used to encrypt Refresh token | TRUE
+MOBILE_JWT_SECRET | Secret used to encrypt mobile token | TRUE
+JWT_EXP | JWT expiration | FALSE | 5m
+REFRESH_JWT_EXP | Refresh token expiration | FALSE | 1d
+MOBILE_JWT_EXP | mobile token expiration | FALSE | 90d
 DB_URL | Database URL | True |
 DOMAIN_URL | URL of the frontend (used for email urls) | FALSE | http://localhost
 QUERY_COMPLEXITY_LIMIT | Limit of incoming requests complexity (nested fields) | FALSE | 20
