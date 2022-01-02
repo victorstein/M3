@@ -5,7 +5,7 @@ import { Credentials, GoogleUser, ILogin } from 'auth/auth.types'
 import { IEnv } from 'env.types'
 import { User } from 'user/user.entity'
 import { UserService } from 'user/user.service'
-import { SocialLogin } from './socialLogin'
+import { SocialLogin } from './social.abstract'
 
 @Injectable()
 export class GoogleAuthStrategy extends SocialLogin implements ILogin {

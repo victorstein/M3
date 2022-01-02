@@ -6,7 +6,7 @@ import Axios from 'axios'
 import { IEnv } from 'env.types'
 import { User } from 'user/user.entity'
 import { UserService } from 'user/user.service'
-import { SocialLogin } from './socialLogin'
+import { SocialLogin } from './social.abstract'
 
 @Injectable()
 export class FacebookAuthStrategy extends SocialLogin implements ILogin {
