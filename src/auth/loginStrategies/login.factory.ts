@@ -15,9 +15,9 @@ export class LoginFactory {
   public getLoginStrategy (AuthType: AuthTypes): ILogin {
     if (AuthType === AuthTypes.EMAIL_AND_PASSWORD) {
       return this.emailAndPasswordStrategy
-    } if (AuthType === AuthTypes.GOOGLE) {
+    } else if (AuthType === AuthTypes.GOOGLE) {
       return this.googleStrategy
-    } if (AuthType === AuthTypes.FACEBOOK) {
+    } else if (AuthType === AuthTypes.FACEBOOK) {
       return this.facebookStrategy
     } else {
       throw new Error(`The Provided Auth type "${String(AuthType)}" is not valid`)
