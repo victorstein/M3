@@ -13,7 +13,7 @@ export class EnvironmentVariables implements IEnv {
   @IsString() ALLOWED_ORIGINS: string = '*'
   @IsIn(Object.values(LogLevels)) LOG_LEVEL: LogLevels = LogLevels.VERBOSE
   // EXPIRATION VARIABLES
-  @IsString() JWT_EXP: string = '15m'
+  @IsString() JWT_EXP: string = '5m'
   @IsString() REFRESH_JWT_EXP: string = '1d'
   @IsString() MOBILE_JWT_EXP: string = '90d'
   @IsString() RATE_LIMIT_BAN_EXP: string = '5h'
