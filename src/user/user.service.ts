@@ -15,14 +15,14 @@ export class UserService extends Service<User> {
   @Inject() roleService: RoleService
 
   async findOneByRole (role: Roles): Promise<User | null> {
-    this.logger.verbose(`Operation: findOneByRole. \n role: ${role}`)
+    this.logger.debug(`Operation: findOneByRole. \n role: ${role}`)
     const foundRole = await this.roleService.findOneByParam({ type: role })
     if (foundRole === null) return null
     return await this.model.findOne({ role: foundRole._id })
   }
 
   generateTemporaryPassword (): string {
-    this.logger.verbose('Generating temporary password')
+    this.logger.debug('Generating temporary password')
     return generator.generate({
       length: 30,
       numbers: true,
@@ -32,7 +32,7 @@ export class UserService extends Service<User> {
   }
 
   async hashPassword (password: string): Promise<string> {
-    this.logger.verbose('Hashing temporary password')
+    this.logger.debug('Hashing temporary password')
     return await argon2.hash(password, { type: argon2.argon2i })
   }
 

@@ -15,4 +15,4 @@ async function bootstrap (): Promise<void> {
   await app.listen(port)
 }
 bootstrap()
-  .catch((e) => console.log(e))
+  .catch((e) => console.error(e))

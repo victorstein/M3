@@ -76,8 +76,8 @@ describe('SeederService', () => {
   describe('seedAdmin', () => {
     it('Should log to the console if the admin user was found', async () => {
       await service.seedAdmin()
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(1, 'Looking for admin user')
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(2, 'There\'s an existing admin user in the DB. New admin not created.')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(1, 'Looking for admin user')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(2, 'There\'s an existing admin user in the DB. New admin not created.')
     })
 
     it('Should Throw if there is no admin user email in env file and no admin was found', async () => {
@@ -90,12 +90,12 @@ describe('SeederService', () => {
       mockUserService.findOneByRole.mockResolvedValue(null)
       mockRoleService.findOneByParam.mockResolvedValueOnce(null)
       await service.seedAdmin()
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(1, 'Looking for admin user')
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(2, 'Admin user was not found.')
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(3, 'Check if admin email on .env')
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(4, 'Checking if ADMIN role exists...')
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(5, 'Admin role not found. Creating Base roles...')
-      expect(mockLogger.verbose).toHaveBeenNthCalledWith(6, 'Add user to DB')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(1, 'Looking for admin user')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(2, 'Admin user was not found.')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(3, 'Check if admin email on .env')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(4, 'Checking if ADMIN role exists...')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(5, 'Admin role not found. Creating Base roles...')
+      expect(mockLogger.debug).toHaveBeenNthCalledWith(6, 'Add user to DB')
     })
 
     it('Should gneretate a temporary password for the admin and hash it', async () => {

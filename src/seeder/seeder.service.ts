@@ -1,17 +1,21 @@
-import { Inject, Injectable, Logger } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { AuthTypes } from 'auth/auth.types'
 import { IEnv } from 'env.types'
+import { EmailProducer } from 'queue/email/email.producer'
 import { RoleService } from 'role/role.service'
 import { Roles } from 'role/types/role.types'
 import { UserService } from 'user/user.service'
 
 @Injectable()
 export class SeederService {
-  @Inject() roleService: RoleService
-  @Inject() userService: UserService
-  @Inject() logger: Logger
-  @Inject() configService: ConfigService<IEnv>
+  constructor (
+    private readonly roleService: RoleService,
+    private readonly userService: UserService,
+    private readonly logger: Logger,
+    private readonly configService: ConfigService<IEnv>,
+    private readonly emailProducer: EmailProducer
+  ) {}
 
   async seedRoles (): Promise<void> {
     for (const role of Object.values(Roles)) {
@@ -31,20 +35,20 @@ export class SeederService {
     try {
       const ADMIN_EMAIL = this.configService.get('ADMIN_EMAIL')
 
-      this.logger.verbose('Looking for admin user')
+      this.logger.debug('Looking for admin user')
       const admin = await this.userService.findOneByRole(Roles.ADMIN)
 
       if (admin === null) {
-        this.logger.verbose('Admin user was not found.')
+        this.logger.debug('Admin user was not found.')
 
-        this.logger.verbose('Check if admin email on .env')
+        this.logger.debug('Check if admin email on .env')
         if (ADMIN_EMAIL === null) throw new Error('Database seed error. ADMIN_EMAIL not set in .env file.')
 
-        this.logger.verbose('Checking if ADMIN role exists...')
+        this.logger.debug('Checking if ADMIN role exists...')
         let adminRole = await this.roleService.findOneByParam({ name: Roles.ADMIN })
 
         if (adminRole === null) {
-          this.logger.verbose('Admin role not found. Creating Base roles...')
+          this.logger.debug('Admin role not found. Creating Base roles...')
           await this.seedRoles()
         }
 
@@ -53,10 +57,10 @@ export class SeederService {
         const password = this.userService.generateTemporaryPassword()
         const hashedPassword = await this.userService.hashPassword(password)
 
-        this.logger.verbose('Add user to DB')
-        await this.userService.create({
-          firstName: 'admin',
-          lastName: 'admin',
+        this.logger.debug('Add user to DB')
+        const user = await this.userService.create({
+          firstName: 'Admin',
+          lastName: 'Admin',
           email: ADMIN_EMAIL,
           password: hashedPassword,
           role: adminRole?._id,
@@ -64,11 +68,11 @@ export class SeederService {
           signupType: AuthTypes.EMAIL_AND_PASSWORD
         })
 
-        // await this.emailService.sendResetPasswordEmail(admin)
+        await this.emailProducer.resetPasswordEmail(user.id)
         return
       }
 
-      this.logger.verbose('There\'s an existing admin user in the DB. New admin not created.')
+      this.logger.debug('There\'s an existing admin user in the DB. New admin not created.')
     } catch (e) {
       this.logger.error(`There was an error seeding the DB: ${e.message as string}`)
       throw new Error(e.message)

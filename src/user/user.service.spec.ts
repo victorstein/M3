@@ -48,7 +48,7 @@ describe('UserService', () => {
   describe('FindOneByRole', () => {
     it('Should log the operation and role when its invoked', async () => {
       await service.findOneByRole(Roles.ADMIN)
-      expect(logger.verbose).toHaveBeenCalledWith(`Operation: findOneByRole. \n role: ${Roles.ADMIN}`)
+      expect(logger.debug).toHaveBeenCalledWith(`Operation: findOneByRole. \n role: ${Roles.ADMIN}`)
     })
 
     it('Should return null if the role service cant find a role', async () => {
@@ -73,7 +73,7 @@ describe('UserService', () => {
   describe('generateTemporaryPassword', () => {
     it('Should log a message to the console', () => {
       service.generateTemporaryPassword()
-      expect(logger.verbose).toHaveBeenCalledWith('Generating temporary password')
+      expect(logger.debug).toHaveBeenCalledWith('Generating temporary password')
     })
 
     it('Should generate a password with the default configuration', () => {
@@ -100,7 +100,7 @@ describe('UserService', () => {
   describe('hashPassword', () => {
     it('Should log a message to the console', async () => {
       await service.hashPassword('')
-      expect(logger.verbose).toHaveBeenCalledWith('Hashing temporary password')
+      expect(logger.debug).toHaveBeenCalledWith('Hashing temporary password')
     })
 
     it('Should invoke the hashing function from argon', async () => {
