@@ -40,4 +40,5 @@ export interface IEnv {
   LOG_LEVEL: LogLevels
   GOOGLE_JWK_URI: string
   FACEBOOK_GRAPH_URI: string
+  REDIS_URL: string
 }
