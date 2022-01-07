@@ -35,8 +35,8 @@ enum AuthTypes {
 }
 
 type Query {
-  getAllRoles: [Role!]
   getAllUsers: [User!]
+  getAllRoles: [Role!]
 
   """
   Query used to login the user, the backend will determine if the request is mobile or desktop

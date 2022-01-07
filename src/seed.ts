@@ -10,10 +10,9 @@ async function bootstrap (): Promise<void> {
   const seeder = app.get(Seeder)
 
   await seeder.seed()
-  logger.verbose('Done seeding the DB')
-  app.close()
-    .catch(e => { throw new Error(e) })
+  logger.debug('Done seeding the DB')
 }
 
 bootstrap()
-  .catch(e => console.log(e))
+  .then(() => process.exit())
+  .catch(e => console.error(e))

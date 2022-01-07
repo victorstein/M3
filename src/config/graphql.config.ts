@@ -3,10 +3,10 @@ import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory, GraphQLModule } from '@nestjs/graphql'
 import { IContext } from 'app.types'
 import { join } from 'path'
-import { Environments, IEnv } from './env.types'
+import { Environments, IEnv } from '../env.types'
 
 @Injectable()
-class GraphQLConfig implements GqlOptionsFactory {
+class GraphQLConfiguration implements GqlOptionsFactory {
   @Inject() configService: ConfigService<IEnv>
 
   createGqlOptions (): GqlModuleOptions {
@@ -23,6 +23,6 @@ class GraphQLConfig implements GqlOptionsFactory {
   }
 }
 
-export const graphqlConfig = GraphQLModule.forRootAsync({
-  useClass: GraphQLConfig
+export const GraphqlConfig = GraphQLModule.forRootAsync({
+  useClass: GraphQLConfiguration
 })

@@ -97,7 +97,7 @@ export class JWTCookieStrategy extends PassportStrategy(Strategy, AuthStrategies
       return false
     }
 
-    this.logger.verbose('Renewing jwt and refresh token')
+    this.logger.debug('Renewing jwt and refresh token')
     // If the refresh token didn't error out then generate a new token and refresh token
     const newJwt = this.authService.generateToken({ user })
     const newRefresh = this.authService.generateToken({ user, tokenType })

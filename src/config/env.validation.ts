@@ -1,7 +1,7 @@
 import { ConfigModule } from '@nestjs/config'
 import { plainToClass } from 'class-transformer'
 import { IsDefined, IsEmail, IsFQDN, IsIn, IsNumber, IsOptional, IsString, IsUrl, Min, MinLength, validateSync } from 'class-validator'
-import { Environments, IEnv, LogLevels } from './env.types'
+import { Environments, IEnv, LogLevels } from '../env.types'
 
 export class EnvironmentVariables implements IEnv {
   // GENERAL VARIABLES
@@ -11,7 +11,7 @@ export class EnvironmentVariables implements IEnv {
   @IsUrl({ require_tld: false }) DOMAIN_URL: string = 'http://localhost'
   @IsNumber() @Min(0) QUERY_COMPLEXITY_LIMIT: number = 20
   @IsString() ALLOWED_ORIGINS: string = '*'
-  @IsIn(Object.values(LogLevels)) LOG_LEVEL: LogLevels = LogLevels.VERBOSE
+  @IsIn(Object.values(LogLevels)) LOG_LEVEL: LogLevels = LogLevels.DEBUG
   // EXPIRATION VARIABLES
   @IsString() JWT_EXP: string = '5m'
   @IsString() REFRESH_JWT_EXP: string = '1d'
@@ -39,6 +39,8 @@ export class EnvironmentVariables implements IEnv {
   // SOCIAL_LOGIN_VARIABLES
   @IsOptional() @IsUrl() GOOGLE_JWK_URI: string = 'https://www.googleapis.com/oauth2/v3/certs'
   @IsOptional() @IsUrl() FACEBOOK_GRAPH_URI: string = 'https://graph.facebook.com/v12.0'
+  // REDIS
+  @IsDefined() REDIS_URL: string = 'http://localhost:6379'
 }
 
 export function validateEnv (config: Record<string, unknown>): EnvironmentVariables {

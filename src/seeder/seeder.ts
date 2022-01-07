@@ -8,7 +8,7 @@ export class Seeder {
 
   async seed (): Promise<void> {
     try {
-      this.logger.verbose('Started Seeding...')
+      this.logger.debug('Started Seeding...')
       await this.seederService.seedAdmin()
     } catch (e) {
       this.logger.error('Seeding process failed')

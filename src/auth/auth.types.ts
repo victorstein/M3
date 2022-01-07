@@ -38,7 +38,8 @@ export enum AuthTypes {
 export enum TokenType {
   JWT = 'JWT_TOKEN',
   REFRESH = 'REFRESH_TOKEN',
-  MOBILE = 'MOBILE_TOKEN'
+  MOBILE = 'MOBILE_TOKEN',
+  EMAIL = 'EMAIL_TOKEN'
 }
 
 export interface Credentials {
