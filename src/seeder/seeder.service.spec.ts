@@ -4,6 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { DocumentType } from '@typegoose/typegoose'
 import { IEnv } from 'env.types'
 import { mock } from 'jest-mock-extended'
+import { EmailProducer } from 'queue/email/email.producer'
 import { Role } from 'role/role.entity'
 import { RoleService } from 'role/role.service'
 import { User } from 'user/user.entity'
@@ -14,6 +15,7 @@ const mockUserService = mock<UserService>()
 const mockRoleService = mock<RoleService>()
 const mockLogger = mock<Logger>()
 const mockConfigService = mock<ConfigService<IEnv>>()
+const mockEmailProducer = mock<EmailProducer>()
 
 jest.mock('role/types/role.types', () => ({
   __esModule: true,
@@ -30,6 +32,7 @@ describe('SeederService', () => {
         { provide: UserService, useValue: mockUserService },
         { provide: RoleService, useValue: mockRoleService },
         { provide: Logger, useValue: mockLogger },
+        { provide: EmailProducer, useValue: mockEmailProducer },
         { provide: ConfigService, useValue: mockConfigService }
       ]
     }).compile()
@@ -41,6 +44,7 @@ describe('SeederService', () => {
     jest.clearAllMocks()
     // Reset default value for the mocks
     mockUserService.findOneByRole.mockResolvedValue({} as const as DocumentType<User>)
+    mockUserService.create.mockResolvedValue({ id: 'createdUser' } as const as DocumentType<User>)
     mockRoleService.findOneByParam.mockResolvedValue({ _id: 'foundRole' } as const as DocumentType<Role>)
     mockConfigService.get.mockReturnValue('test@test.test')
   })
