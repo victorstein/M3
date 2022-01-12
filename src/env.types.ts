@@ -42,4 +42,5 @@ export interface IEnv {
   FACEBOOK_GRAPH_URI: string
   REDIS_URL: string
   REDIS_PASSWORD: string
+  REDIS_USERNAME: string
 }

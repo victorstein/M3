@@ -13,6 +13,7 @@ class BullConfiguration implements SharedBullConfigurationFactory {
   createSharedConfiguration (): BullModuleOptions {
     const { hostname, port } = new URL(this.configService.get('REDIS_URL', ''))
     const password = this.configService.get('REDIS_PASSWORD', undefined)
+    const username = this.configService.get('REDIS_USERNAME', undefined)
 
     return {
       defaultJobOptions: {
@@ -22,7 +23,8 @@ class BullConfiguration implements SharedBullConfigurationFactory {
       redis: {
         host: hostname,
         port: Number(port),
-        password
+        password,
+        username
       }
     }
   }

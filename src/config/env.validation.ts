@@ -41,7 +41,8 @@ export class EnvironmentVariables implements IEnv {
   @IsOptional() @IsUrl() FACEBOOK_GRAPH_URI: string = 'https://graph.facebook.com/v12.0'
   // REDIS
   @IsDefined() REDIS_URL: string = 'http://localhost:6379'
-  @IsOptional() REDIS_PASSWORD: string
+  @IsOptional() @IsString() REDIS_PASSWORD: string
+  @IsOptional() @IsString() REDIS_USERNAME: string
 }
 
 export function validateEnv (config: Record<string, unknown>): EnvironmentVariables {
