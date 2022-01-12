@@ -41,4 +41,6 @@ export interface IEnv {
   GOOGLE_JWK_URI: string
   FACEBOOK_GRAPH_URI: string
   REDIS_URL: string
+  REDIS_PASSWORD: string
+  REDIS_USERNAME: string
 }
