@@ -40,7 +40,7 @@ export class EnvironmentVariables implements IEnv {
   @IsOptional() @IsUrl() GOOGLE_JWK_URI: string = 'https://www.googleapis.com/oauth2/v3/certs'
   @IsOptional() @IsUrl() FACEBOOK_GRAPH_URI: string = 'https://graph.facebook.com/v12.0'
   // REDIS
-  @IsDefined() REDIS_URL: string = 'http://localhost:6379'
+  @IsDefined() REDIS_URL: string
   @IsOptional() @IsString() REDIS_PASSWORD: string
   @IsOptional() @IsString() REDIS_USERNAME: string
 }
